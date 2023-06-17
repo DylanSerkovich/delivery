@@ -1,0 +1,70 @@
+<html>
+    <head>
+        <link rel="icon" href="images/icons/gaviotas.ico" type="image/png">
+        <title>Nuestra Carta</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <header class="encabezado">
+            <nav th:replace="~{menu :: #nav-inicio}"></nav>
+        </header>
+        <section class="menu contenedor">
+            <h2 class="texto-platillos">Platillos populares</h2>
+            <div class="botones-platillos">
+                <button class="todos btn btn-color">Todos</button>
+                <button th:each="cat: ${categorias}" th:id="${cat.nombreCategoria}"  class="btn btn-color" th:classappend="${cat.nombreCategoria}" th:text="${cat.nombreCategoria}" style="margin-left:2px;margin-right:2px;"></button>
+            </div>
+            <br><br>
+            <div class="platillos">
+                <th:block th:each="prod: ${productos}">
+                    <div class="platillo" th:data-platillo="${prod.categoria.nombreCategoria}">
+                        <img th:data-src="${prod.dirImagen}" th:alt="${prod.categoria.nombreCategoria}">
+                        <h2 th:text="${prod.nombreProducto}"></h2>
+                        <p th:text="${prod.descripcion}"></p>
+                        <hr class="divider" size="1px" color="black" style="margin-top: 5%; margin-bottom: 5%">
+                        <div class="precio">
+                            <p th:text="'S/. ' + ${prod.precioUnitario}"></p>
+                            <a id=btn-cart th:class="${prod.nombreProducto}" th:attr="aria-label=${prod.nombreProducto}+ ' '+ ${prod.precioUnitario}+ ' soles' " style="cursor: pointer" th:href="@{/pedido(id=${prod.idProducto})}"><i class="fas fa-shopping-basket"></i></a>
+                        </div>
+                    </div>
+                </th:block>
+            </div>
+        </section>
+        <br>
+        <div class="pie-pagina ">
+            <div class="contenedor-piepagina contenedor">
+                <div class="info">
+                    <h3>Dirección</h3>
+                    <br>
+                    <p>C. Juan Fanning 408, Miraflores 15074</p>
+                </div>
+                <div class="info">
+                    <h3>Días especiales</h3>
+                    <br>
+                    <p>Sabados y Domingos 8am - 7pm</p>
+                    <p>Teléfono : 01 4475579</p>
+                </div>
+                <div class="info">
+                    <h3>Horarios</h3>
+                    <br>
+                    <p>Lunes - Domingo 8am - 7pm</p>
+                    <div class="redes-sociales redes-pie">
+                        <i class="fab fa-facebook-square"></i>
+                        <i class="fab fa-twitter-square"></i>
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <p>Todos los derechos reservados &copy; 2022 Las Gaviotas, desarrollado por el GRUPO 5</p>
+        </footer>
+        <script src="js/java.js"></script>
+    </body>
+</html>

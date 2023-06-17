@@ -1,0 +1,51 @@
+<nav id="nav-inicio">
+    <form
+            th:action="@{/logout}"
+            method="post"
+            th:hidden="true"
+            id="logoutForm"
+    >
+    </form>
+    <a class="enlace">
+        <img src="images/gaviotas.png" class="logo">
+    </a>
+    <div>
+        <input type="checkbox" id="check">
+        <label for="check" class="checkbtn">
+            <i class="fa-solid fa-bars"></i>
+        </label>
+        <ul>
+            <label class="cerrar" for="check">
+                <i class="fa-solid fa-x"></i>
+            </label>
+            <li><a class="active" th:href="@{/}">Inicio</a></li>
+            <li><a id="idCarta" th:href="@{/carta}">Nuestra Carta</a></li>
+
+            <li><a th:href="@{/ubicacion}">Ubícanos</a></li>
+            <li sec:authorize="isAuthenticated()">
+                <div class="dropdown">
+                    <button id="btn-user" class="dropbtn">
+                        <i class="fa-solid fa-user" style="color: rgb(0, 253, 30); padding-right: 5px;"></i>
+                        <label style="color: white; cursor: pointer" sec:authentication="principal.NameSesion"></label>
+                    </button>
+                    <div class="dropdown-content">
+                        <a th:href="@{/miCuenta}">Mi Cuenta</a>
+                        <a th:href="@{/misPedidos}">Mis Pedidos</a>
+                        <hr size="2px" color="black">
+                        <a  href="#!" onclick="document.getElementById('logoutForm').submit();">Cerrar sesión</a>
+                    </div>
+                </div>
+            </li>
+            <li sec:authorize="!isAuthenticated()">
+                <a id="idSesion" th:href="@{/login_cliente}"><label  class="fa-solid fa-user" style=" padding-right: 5px"></label>Iniciar sesión</a>
+            </li>
+            <li style="position:            relative" >
+                <a th:href="@{/pedidoM}">
+                    <i class="fa-solid fa-cart-shopping" style="margin-left: 15px"></i>
+                    <!--span th:attr="aria-label='carrito con monto de '+${monto} + ' soles con '+ ${pedido.listaProductosPedidos.size} + ' productos'" th:text="'S/. ' + ${monto}" style="margin-right: 15px"></span>
+                    <span id="cart_menu_num" data-action="cart-can" class="badge rounded-circle" th:text="${pedido.listaProductosPedidos.size}"></span-->
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>

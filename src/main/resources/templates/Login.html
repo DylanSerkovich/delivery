@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <title>Login Form Design One | Fazt</title>
+    <link rel="stylesheet" href="/css/login.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+    <script src="/js/jquery-3.7.0.min.js" ></script>
+  </head>
+  <body>
+
+    <div class="login-box">
+      <img src="images/gaviotas.png" class="avatar" alt="Avatar Image">
+      <h1>Login Here</h1>
+      <form th:action="@{/login_cliente}" method="post">
+        <div th:if="${param.error}" class="alert alert-danger">
+          <i class="fas fa-times-circle me-3"></i>
+          [[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]
+        </div>
+        <!-- USERNAME INPUT -->
+        <label for="idUsername">Usuario</label>
+        <input id="idUsername" type="text" name="email" placeholder="Enter Username" required="required">
+        <!-- PASSWORD INPUT -->
+        <label for="idPassword">Password</label>
+        <input id="idPassword" type="password" name="password" placeholder="Enter Password" required="required">
+        <input id="idLogin" type="submit" value="LogIn">
+        <a th:href="@{/reset-password}">¿Se te olvido tu contraseña?</a><br>
+        <a th:href="@{/registrate}">No tienes una cuenta?</a>
+      </form>
+    </div>
+
+    <script th:inline="javascript">
+
+      function alertSweet(iconAlert, titleAlert) {
+        Toast.fire({
+          icon: iconAlert,
+          title: titleAlert,
+        });
+      }
+
+      $(document).ready(function () {
+        var flag = /*[[${flag}]]*/ "";
+
+        switch (flag){
+            case "success":
+                alertSweet("success", "<center>!Mensaje enviado!</center><center>¡Revise la informacion en su correo!</center>");
+                break;
+
+            case "error":
+                alertSweet("error", "<center>Error de Envio</center><center>Revise los campos o intente más tarde</center>");
+                break;
+            case "iniciarSesion":
+                alertSweet("success", "<center>!Correo Verificado!</center><center>Inicie Sesion para acceder a todos nuestros servicios</center>");
+                document.getElementById("btnIngresar").click();
+                break;
+            case "errorValid":
+                ValueInp();
+        }
+      });
+    </script>
+  </body>
+</html>

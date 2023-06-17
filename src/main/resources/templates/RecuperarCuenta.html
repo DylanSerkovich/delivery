@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <title>Login Form Design One | Fazt</title>
+    <link rel="stylesheet" href="/css/recover.css">
+  </head>
+  <body>
+
+    <div class="login-box">
+      <img src="images/gaviotas.png" class="avatar" alt="Avatar Image">
+      <h1>Recover Account</h1>
+      <form th:action="@{/reset-password}" method="post">
+        <!-- DNI INPUT -->
+        <label for="email">Email</label>
+        <input id="email" type="email" name="email" placeholder="Enter associated email" required="required">
+        <input type="submit" value="Send">
+      </form>
+    </div>
+    <th:block th:if="${error!=null}">
+      <div class="alert alert-danger">
+        <i class="far fa-times-circle"></i>
+        [[${error}]]
+      </div>
+    </th:block>
+    <th:block th:if="${mensaje!=null}">
+      <div class="alert alert-success" >
+        <i class="fa-regular fa-circle-check"></i>
+        [[${mensaje}]]
+      </div>
+    </th:block>
+  </body>
+</html>
