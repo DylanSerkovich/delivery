@@ -11,6 +11,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,7 +33,11 @@ public class AuthController {
 
     @GetMapping("/login_cliente")
     public String LoginCliente(){
-        return "Login";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication == null || authentication instanceof AnonymousAuthenticationToken)
+            return "Login";
+        else
+            return "/";
     }
 
     @GetMapping("/registrate")
@@ -52,6 +59,8 @@ public class AuthController {
         //return new ResponseUserDTO();
     }
 
+
+
     @GetMapping("/verify")
     public String verifyUser(@Param("code") String code, Model model, RedirectAttributes redirectAttributes) {
         if (userService.verify(code)) {
@@ -63,4 +72,5 @@ public class AuthController {
             return "mensaje";
         }
     }
+
 }
