@@ -34,11 +34,19 @@ public class AuthController {
     @GetMapping("/login_cliente")
     public String LoginCliente(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(authentication == null || authentication instanceof AnonymousAuthenticationToken)
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "Login";
-        else
-            return "/";
+        }
+
+        return "redirect:/";
     }
+
+/*
+    @GetMapping("/login_cliente")
+    public String LoginCliente(){
+            return "Login";
+    }*/
+
 
     @GetMapping("/registrate")
     public String pgPrincipal(Model model) {

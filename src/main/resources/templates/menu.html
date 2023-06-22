@@ -18,10 +18,11 @@
             <label class="cerrar" for="check">
                 <i class="fa-solid fa-x"></i>
             </label>
-            <li><a th:classappend="${#httpServletRequest.requestURI == '/'} ? 'active' : ''" th:href="@{/}">Inicio</a></li>
-            <li><a th:classappend="${#httpServletRequest.requestURI == '/carta'} ? 'active' : ''" id="idCarta" th:href="@{/carta}">Nuestra Carta</a></li>
+            <li><a  th:href="@{/}">Inicio</a></li>
+            <li><a  id="idCarta" th:href="@{/carta}">Nuestra Carta</a></li>
 
-            <li><a th:classappend="${#httpServletRequest.requestURI == '/ubicacion'} ? 'active' : ''" th:href="@{/ubicacion}">Ubícanos</a></li>
+            <li><a  th:href="@{/ubicacion}">Ubícanos</a></li>
+            <!--th:classappend="${#httpServletRequest.getRequestURI() == '/ubicacion'} ? 'active' : ''"-->
             <li sec:authorize="isAuthenticated()">
                 <div class="dropdown">
                     <button id="btn-user" class="dropbtn">
