@@ -33,4 +33,4 @@ build/
 .vscode/
 
 import.sql
-.application-dev.properties
+application-dev.properties
