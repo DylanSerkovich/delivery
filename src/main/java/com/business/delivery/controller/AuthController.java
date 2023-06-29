@@ -1,9 +1,12 @@
 package com.business.delivery.controller;
 
+import com.business.delivery.config.security.CustomUserDetails;
 import com.business.delivery.dto.ResponseUserDTO;
 import com.business.delivery.model.Distrito;
 import com.business.delivery.model.Persona;
 import com.business.delivery.repository.DistritoRepository;
+import com.business.delivery.repository.PedidoRepository;
+import com.business.delivery.repository.PersonaRepository;
 import com.business.delivery.service.UserService;
 import com.business.delivery.util.URL;
 import jakarta.mail.MessagingException;
@@ -13,6 +16,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +33,8 @@ public class AuthController {
 
     @Autowired UserService userService;
 
+    @Autowired
+    PersonaRepository clienteRepo;
     @Autowired DistritoRepository distritoRepo;
 
     @GetMapping("/login_cliente")
@@ -79,6 +85,16 @@ public class AuthController {
             model.addAttribute("mensaje", "Token Invalido, o el usuario ya esta verificado");
             return "mensaje";
         }
+    }
+
+    @GetMapping("/miCuenta")
+    public String menuCuenta(Model model,@AuthenticationPrincipal CustomUserDetails userDetails) {
+        if(userDetails != null){
+            String emailUser = userDetails.getUsername();
+            Persona persona = clienteRepo.findByEmailEnable(emailUser, 1);
+            model.addAttribute("client", persona);
+        }
+        return "MisDatos";
     }
 
 }

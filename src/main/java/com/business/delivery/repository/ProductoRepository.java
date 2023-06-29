@@ -13,4 +13,6 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
     @Query(value="SELECT * FROM Producto p WHERE p.id_categoria=?1",nativeQuery=true)
     List<Producto> findByCategoria(int id_categoria);
 
+
+
 }

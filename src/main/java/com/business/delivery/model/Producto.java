@@ -3,6 +3,9 @@ package com.business.delivery.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @Entity
 @Table(name = "PRODUCTO")
@@ -30,4 +33,19 @@ public class Producto {
         this.descripcion = descripcion;
         this.precioUnitario = precioUnitario;
     }
+
+    @Override
+    public String toString() {
+        return "Producto{" +
+                "idProducto=" + idProducto +
+                ", dirImagen='" + dirImagen + '\'' +
+                ", nombreProducto='" + nombreProducto + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", precioUnitario=" + precioUnitario +
+                ", categoria=" + categoria +
+                '}';
+    }
+
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)
+    private List<ProductoPedido> listaProductosp = new ArrayList<ProductoPedido>();
 }

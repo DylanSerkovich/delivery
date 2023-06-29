@@ -58,9 +58,11 @@ public class Persona {
     }
 
     @OneToMany(mappedBy = "persona",cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private Set<Pedido> Lpedido = new HashSet<>();
+    //private Set<Pedido> Lpedido = new HashSet<>();
+    private List<Pedido> Lpedido = new ArrayList<>();
 
     public void addPedido(Pedido pedido) {
         this.Lpedido.add(pedido);
+        pedido.setPersona(this);
     }
 }

@@ -22,7 +22,7 @@ public class ClienteConfig {
 
         http.requestCache().disable()
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/pagar","/perfil").hasAuthority("CLIENTE");
+                    auth.requestMatchers("/pagar","/miCuenta","/misPedidos").hasAuthority("CLIENTE");
                     auth.anyRequest().permitAll();
                 })
                 .formLogin()

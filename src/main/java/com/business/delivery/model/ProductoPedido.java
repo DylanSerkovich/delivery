@@ -20,7 +20,7 @@ public class ProductoPedido {
 
     @OneToOne
     @MapsId("id_producto")
-    @JoinColumn(name = "id_producto",referencedColumnName = "id_producto")
+    @JoinColumn(name = "id_producto",referencedColumnName = "id_producto", unique = false)
     private Producto producto;
 
     public ProductoPedido() {

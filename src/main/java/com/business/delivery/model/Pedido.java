@@ -23,17 +23,36 @@ public class Pedido {
     private Date fecha_entrega;
     private String tipo_pago;
 
+    @Transient
+    private Double totalPrice;
+    @Transient
+    private int itemsNumber;
+
     public Pedido() {
     }
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private Set<ProductoPedido> listaProductosPedidos = new HashSet<>();
+    //private Set<ProductoPedido> listaProductosPedidos = new HashSet<>();
+    private List<ProductoPedido> listaProductosPedidos = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "id_persona",referencedColumnName = "id_persona")
     private Persona persona;
 
     public void addProducto(ProductoPedido productoPedido) {
+        //productoPedido.getId().setIdPedido(this.id_pedido);
         this.listaProductosPedidos.add(productoPedido);
+        productoPedido.setPedido(this);
+    }
+
+    public Double getTotalPrice() {
+        Double sum = 0.0;
+        for(ProductoPedido item : this.listaProductosPedidos) {
+            sum = sum + item.getPrecio_unitario()*item.getCantidad();
+        }
+        return sum;
+    }
+    public int getItemsNumber() {
+        return this.listaProductosPedidos.size();
     }
 }

@@ -10,15 +10,14 @@ import java.io.Serializable;
 @Data
 public class ProductoPedidoID implements Serializable{
     @Column(name = "id_pedido")
-    private int idPedido;
-
+    private int id_pedido;
     @Column(name = "id_producto")
-    private int idProducto;
+    private int id_producto;
 
     public ProductoPedidoID() {
     }
 
     public ProductoPedidoID( int idProducto) {
-        this.idProducto = idProducto;
+        this.id_producto = idProducto;
     }
 }
