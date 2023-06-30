@@ -103,6 +103,34 @@ public class ShoopingController {
 
     }
 
+    @GetMapping("/remover")
+    public String EliminarP(@RequestParam(value = "id") int id, Model model, @AuthenticationPrincipal CustomUserDetails userDetails) {
+        for (int i = 0; i < this.pedidoAux.getListaProductosPedidos().size(); i++) {
+            if (this.pedidoAux.getListaProductosPedidos().get(i).getId().getId_producto() == id) {
+                this.monto_total -= (this.pedidoAux.getListaProductosPedidos().get(i).getCantidad() * this.pedidoAux.getListaProductosPedidos().get(i).getPrecio_unitario());
+                this.pedidoAux.getListaProductosPedidos().remove(i);
+                break;
+            }
+        }
+
+        return "redirect:pedidoM";
+    }
+
+    @GetMapping("/pedidoM")
+    public String menuPedido(Model model,@AuthenticationPrincipal CustomUserDetails userDetails) {
+        List<Distrito> distritos = distritoRepo.findAll();
+        model.addAttribute("distritos", distritos);
+        model.addAttribute("produc", this.pedidoAux.getListaProductosPedidos());
+        model.addAttribute("pedido", this.pedidoAux);
+        model.addAttribute("monto", this.monto_total);
+        if(userDetails != null){
+            String emailUser = userDetails.getUsername();
+            Persona persona = personaRepo.findByEmailEnable(emailUser, 1);
+            model.addAttribute("persona",persona);
+        }
+        return "Pedido";
+    }
+
     @GetMapping("/cantidad")
     public String cantidadMod(@RequestParam(value = "id") int id, @RequestParam(value = "cantidad") int cantidad, @RequestParam(value = "tipo") int tipo, Model model, @AuthenticationPrincipal CustomUserDetails userDetails) {
         if (tipo == 1) {//resta

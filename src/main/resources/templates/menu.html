@@ -18,10 +18,10 @@
             <label class="cerrar" for="check">
                 <i class="fa-solid fa-x"></i>
             </label>
-            <li><a  th:href="@{/}">Inicio</a></li>
-            <li><a  id="idCarta" th:href="@{/carta}">Nuestra Carta</a></li>
+            <li><a  th:href="@{/}" style="text-decoration:none !important;">Inicio</a></li>
+            <li><a  id="idCarta" th:href="@{/carta}" style="text-decoration:none !important;">Nuestra Carta</a></li>
 
-            <li><a  th:href="@{/ubicacion}">Ubícanos</a></li>
+            <li><a  th:href="@{/ubicacion}" style="text-decoration:none !important;">Ubícanos</a></li>
             <!--th:classappend="${#httpServletRequest.getRequestURI() == '/ubicacion'} ? 'active' : ''"-->
             <li sec:authorize="isAuthenticated()">
                 <div class="dropdown">
